@@ -27,12 +27,12 @@ archivo composer.json.
     ...
     }
 
-Agregar [`deimsantafe/monolog-gelf-bundle`](https://github.com/deimsantafe/monolog-gelf-bundle)
+Agregar [`stg/monolog-gelf-bundle`](https://github.com/deimsantafe/monolog-gelf-bundle)
 a tu archivo `composer.json`:
 
 
 ``` bash
-composer require "deimsantafe/monolog-gelf-bundle"
+composer require "stg/monolog-gelf-bundle"
 ```
 
 Registrar el bundle en el archivo `app/AppKernel.php`:
