@@ -1,0 +1,29 @@
+{
+	"name" : "stg/monolog-gelf-bundle",
+	"type" : "symfony-bundle",
+	"description" : "Bundle para incorporar Logging con Monolog y GELF",
+	"keywords" : [
+		"Symfony",
+		"Monolog",
+		"GELF",
+		"Greylog",
+		"STG"
+	],
+	"homepage" : "http://www.santafe.gov.ar",
+	"authors" : [{
+			"name" : "Baroni, Federico",
+			"homepage" : "http://www.santafe.gov.ar",
+			"email" : "fbaroni@santafe.gov.ar"
+		}
+	],
+	"require" : {
+		"symfony/framework-bundle" : ">=2.8",
+		"graylog2/gelf-php": ">=1.5"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"STG\\Bundle\\MonologGELFBundle\\" : ""
+		}
+	},
+	"target-dir" : "STG/Bundle/MonologGELFBundle"
+}
