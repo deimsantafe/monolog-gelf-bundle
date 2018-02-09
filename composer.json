@@ -25,5 +25,12 @@
 			"STG\\Bundle\\MonologGELFBundle\\" : ""
 		}
 	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.*@dev"
+		}
+	},
+	"minimum-stability": "dev",
+	"version": "1.0.2",
 	"target-dir" : "STG/Bundle/MonologGELFBundle"
 }
