@@ -110,10 +110,19 @@ class MonologGELFHandler extends AbstractHandler
         return strtolower($levelName);
     }
 
+    /**
+     * @return string
+     */
     private function getRequestHost()
     {
         try {
+
+            if(!$this->getRequestStack()->getCurrentRequest()){
+                throw new \Exception();
+            }
+
             return $this->getRequestStack()->getCurrentRequest()->getHost();
+            
         }catch (\Exception $exception){
             return $this->tag;
         }
