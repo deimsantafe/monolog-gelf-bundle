@@ -14,29 +14,26 @@ Agregar el repositorio en donde se encuentra el bundle a instalar. Si no
 existe la clave "repositories" debe ser creada en el primer nivel del 
 archivo composer.json.
 
+```json
     {
-    ...
-
         "repositories": [
             {
               "type": "git",
               "url": "https://github.com/deimsantafe/monolog-gelf-bundle"
             }
          ],
-
-    ...
     }
-
+```
 Agregar [`stg/monolog-gelf-bundle`](https://github.com/deimsantafe/monolog-gelf-bundle)
 a tu archivo `composer.json`:
 
 
-``` bash
+```bash
 composer require "stg/monolog-gelf-bundle"
 ```
 
 Registrar el bundle en el archivo `app/AppKernel.php`:
-
+```php
     public function registerBundles()
     {
         ...
@@ -51,11 +48,11 @@ Registrar el bundle en el archivo `app/AppKernel.php`:
 
         ...
     }
-
+```
 
 Configurar archivo `parameters.yml` :
 
-``` yaml
+```yml
 gelf_host: #host del servidor gelf
 gelf_port: #puerto del servidor gelf
 gelf_tag: #tag para poder filtrar el log en el servidor
