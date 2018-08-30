@@ -14,7 +14,8 @@ class MonologGELFHandler extends AbstractHandler
     private $gelfHost;
     private $gelfPort;
     private $requestStack;
-    private $tag;
+    private $application;
+    private $environment;
 
     /**
      * MonologGELFHandler constructor.
@@ -22,12 +23,14 @@ class MonologGELFHandler extends AbstractHandler
      * @param $gelfPort
      * @param $requestStack
      */
-    public function __construct($gelfHost, $gelfPort, RequestStack $requestStack, $tag)
+    public function __construct($gelfHost, $gelfPort, RequestStack $requestStack,
+                                $application, $environment)
     {
         $this->gelfHost = $gelfHost;
         $this->gelfPort = $gelfPort;
         $this->requestStack = $requestStack;
-        $this->tag = $tag;
+        $this->application = $application;
+        $this->environment = $environment;
 
         parent::__construct();
     }
@@ -72,16 +75,16 @@ class MonologGELFHandler extends AbstractHandler
 
         $message->setShortMessage("[$channel.$levelName] $logMessage")
             ->setLevel($this->getLogLevel($levelName))
-            ->setFullMessage('[' . $channel. ']' . $logMessage . '['. $context. ']')
+            ->setFullMessage('[' . $channel . ']' . $logMessage . '[' . $context . ']')
             ->setFacility('')
-            ->setFile($this->tag . ' ' . $file)
+            ->setFile($this->application . ' ' . $file)
             ->setLine($line)
             ->setHost($this->getRequestHost())
             ->setTimestamp($dateTime->getTimestamp())
             ->setVersion('1.1')
             ->setFile($file)
-            ->setAdditional('tags', '["' . $this->tag . '"]')
-        ;
+            ->setAdditional('environment', $this->environment)
+            ->setAdditional('application', $this->application);
 
         $this->getPublisher()->publish($message);
 
@@ -113,9 +116,14 @@ class MonologGELFHandler extends AbstractHandler
     private function getRequestHost()
     {
         try {
+
+            if (!$this->getRequestStack()->getCurrentRequest()) {
+                throw new \Exception();
+            }
             return $this->getRequestStack()->getCurrentRequest()->getHost();
-        }catch (\Exception $exception){
-            return $this->tag;
+
+        } catch (\Exception $exception) {
+            return $this->application;
         }
     }
 
