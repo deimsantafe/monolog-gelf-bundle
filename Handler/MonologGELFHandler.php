@@ -16,6 +16,7 @@ class MonologGELFHandler extends AbstractHandler
     private $requestStack;
     private $application;
     private $environment;
+    private $gelfLevel;
 
     /**
      * MonologGELFHandler constructor.
@@ -24,15 +25,16 @@ class MonologGELFHandler extends AbstractHandler
      * @param $requestStack
      */
     public function __construct($gelfHost, $gelfPort, RequestStack $requestStack,
-                                $application, $environment)
+                                $application, $environment, $gelfLevel)
     {
         $this->gelfHost = $gelfHost;
         $this->gelfPort = $gelfPort;
         $this->requestStack = $requestStack;
         $this->application = $application;
         $this->environment = $environment;
+        $this->gelfLevel = $gelfLevel;
 
-        parent::__construct();
+        parent::__construct($gelfLevel);
     }
 
 
@@ -43,6 +45,10 @@ class MonologGELFHandler extends AbstractHandler
     public function handle(array $record)
     {
         try {
+	    if (!$this->isHandling($record)) {
+            	return false;
+            }
+            
             $dateTime = $record['datetime'];
             $message = $record['message'];
             $levelName = $record['level_name'];

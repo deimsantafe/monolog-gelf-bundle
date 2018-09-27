@@ -1,5 +1,5 @@
 services:
     stg.monolog.gelf_handler:
         class: STG\Bundle\MonologGELFBundle\Handler\MonologGELFHandler
-        arguments: ['%gelf_host%', '%gelf_port%', '@request_stack', '%gelf_tag%', '%kernel.environment%']
+        arguments: ['%gelf_host%', '%gelf_port%', '@request_stack', '%gelf_tag%', '%kernel.environment%', %gelf_level%]
 

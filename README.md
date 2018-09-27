@@ -59,6 +59,15 @@ Configurar archivo `parameters.yml` :
 gelf_host: #host del servidor gelf
 gelf_port: #puerto del servidor gelf
 gelf_tag: #tag para poder filtrar el log en el servidor
+gelf_level: #nivel de error a loguear
+            # 100-Debug
+            # 200-Info
+            # 250-Notice
+            # 300-Warning
+            # 400-Error
+            # 500-Critical
+            # 550-Alert
+            # 600-Emergency
 ```
 
 Configurar Handler en Monolog(ejemplo):
