@@ -14,7 +14,9 @@ class MonologGELFHandler extends AbstractHandler
     private $gelfHost;
     private $gelfPort;
     private $requestStack;
-    private $tag;
+    private $application;
+    private $environment;
+    private $gelfLevel;
 
     /**
      * MonologGELFHandler constructor.
@@ -22,14 +24,17 @@ class MonologGELFHandler extends AbstractHandler
      * @param $gelfPort
      * @param $requestStack
      */
-    public function __construct($gelfHost, $gelfPort, RequestStack $requestStack, $tag)
+    public function __construct($gelfHost, $gelfPort, RequestStack $requestStack,
+                                $application, $environment, $gelfLevel)
     {
         $this->gelfHost = $gelfHost;
         $this->gelfPort = $gelfPort;
         $this->requestStack = $requestStack;
-        $this->tag = $tag;
+        $this->application = $application;
+        $this->environment = $environment;
+        $this->gelfLevel = $gelfLevel;
 
-        parent::__construct();
+        parent::__construct($gelfLevel);
     }
 
 
@@ -40,6 +45,10 @@ class MonologGELFHandler extends AbstractHandler
     public function handle(array $record)
     {
         try {
+	    if (!$this->isHandling($record)) {
+            	return false;
+            }
+            
             $dateTime = $record['datetime'];
             $message = $record['message'];
             $levelName = $record['level_name'];
@@ -72,16 +81,16 @@ class MonologGELFHandler extends AbstractHandler
 
         $message->setShortMessage("[$channel.$levelName] $logMessage")
             ->setLevel($this->getLogLevel($levelName))
-            ->setFullMessage('[' . $channel. ']' . $logMessage . '['. $context. ']')
+            ->setFullMessage('[' . $channel . ']' . $logMessage . '[' . $context . ']')
             ->setFacility('')
-            ->setFile($this->tag . ' ' . $file)
+            ->setFile($this->application . ' ' . $file)
             ->setLine($line)
             ->setHost($this->getRequestHost())
             ->setTimestamp($dateTime->getTimestamp())
             ->setVersion('1.1')
             ->setFile($file)
-            ->setAdditional('tags', '["' . $this->tag . '"]')
-        ;
+            ->setAdditional('environment', $this->environment)
+            ->setAdditional('application', $this->application);
 
         $this->getPublisher()->publish($message);
 
@@ -124,7 +133,7 @@ class MonologGELFHandler extends AbstractHandler
             return $this->getRequestStack()->getCurrentRequest()->getHost();
             
         }catch (\Exception $exception){
-            return $this->tag;
+            return $this->application;
         }
     }
 
