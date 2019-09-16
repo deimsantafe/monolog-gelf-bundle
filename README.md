@@ -5,7 +5,7 @@ Symfony Bundle para utilizar GELF como handler de Monolog.
 Prerequisitos
 -------------
 
-Este bundle requiere Symfony 2.8+.
+Este bundle requiere Symfony 4.0+.
 
 Instalación
 ---------------
@@ -35,31 +35,13 @@ a tu archivo `composer.json`:
 composer require "stg/monolog-gelf-bundle"
 ```
 
-Registrar el bundle en el archivo `app/AppKernel.php`:
-
-    public function registerBundles()
-    {
-        ...
-
-        $bundles = array(
-            ...
-
-            new STG\Bundle\MonologGELFBundle\STGMonologGELFBundle(),
-
-            ...
-        );
-
-        ...
-    }
-
-
-Configurar archivo `parameters.yml` :
+Configurar archivo `.env` (o las respectivas variables de entorno) :
 
 ``` yaml
-gelf_host: #host del servidor gelf
-gelf_port: #puerto del servidor gelf
-gelf_tag: #tag para poder filtrar el log en el servidor
-gelf_level: #nivel de error a loguear
+GELF_HOST: #host del servidor gelf
+GELF_PORT: #puerto del servidor gelf
+GELF_TAG: #tag para poder filtrar el log en el servidor
+GELF_LEVEL: #nivel de error a loguear
             # 100-Debug
             # 200-Info
             # 250-Notice
@@ -69,8 +51,7 @@ gelf_level: #nivel de error a loguear
             # 550-Alert
             # 600-Emergency
 ```
-
-Configurar Handler en Monolog(ejemplo):
+Configurar Handler en Monolog(ejemplo en archivo `config/packages/dev/monolog.yaml`):
 
 ```yml
 monolog:
