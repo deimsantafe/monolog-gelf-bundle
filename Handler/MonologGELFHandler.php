@@ -2,6 +2,7 @@
 
 namespace STG\Bundle\MonologGELFBundle\Handler;
 
+use DateTimeImmutable;
 use Gelf\Message;
 use Gelf\Publisher;
 use Gelf\Transport\UdpTransport;
@@ -42,7 +43,7 @@ class MonologGELFHandler extends AbstractHandler
      * @param array $record
      * @return bool
      */
-    public function handle(array $record)
+    public function handle(array $record): bool
     {
         try {
 	    if (!$this->isHandling($record)) {
@@ -74,7 +75,7 @@ class MonologGELFHandler extends AbstractHandler
      * @param string $line
      * @return bool
      */
-    private function logMessage(\DateTime $dateTime, $logMessage, $levelName, $channel, $context, $file = '', $line = '')
+    private function logMessage(DateTimeImmutable $dateTime, $logMessage, $levelName, $channel, $context, $file = '', $line = '')
     {
 
         $message = new Message();
