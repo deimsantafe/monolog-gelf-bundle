@@ -5,7 +5,7 @@ Symfony Bundle para utilizar GELF como handler de Monolog.
 Prerequisitos
 -------------
 
-Este bundle requiere Symfony 4.0+.
+Este bundle requiere Symfony 5.0+.
 
 Instalación
 ---------------
