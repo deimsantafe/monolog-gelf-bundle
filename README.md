@@ -32,7 +32,7 @@ a tu archivo `composer.json`:
 
 
 ``` bash
-composer require "stg/monolog-gelf-bundle"
+composer require "stg/monolog-gelf-bundle:^3.0"
 ```
 
 Configurar archivo `.env` (o las respectivas variables de entorno) :
