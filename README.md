@@ -6,6 +6,7 @@ Prerequisitos
 -------------
 
 Este bundle requiere Symfony 2.8+. Para la versión compatible con Symfony 4, ingresar en [versión 2.x](https://github.com/deimsantafe/monolog-gelf-bundle/tree/2.x).
+Para la versión compatible con Symfony 5, ingresar en [versión 3.x](https://github.com/deimsantafe/monolog-gelf-bundle/tree/3.x).
 
 Instalación
 ---------------
